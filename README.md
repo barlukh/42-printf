@@ -1,2 +1,4 @@
-# 42-printf
-Printf project from the 42-cursus at Hive Helsinki.
+# 42 - Printf
+
+## About
+In progress.
