@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 08:57:20 by bgazur            #+#    #+#             */
-/*   Updated: 2025/05/05 16:59:59 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/05/05 17:32:06 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,15 +36,17 @@ int	ft_printf(const char *str, ...)
 	i = 0;
 	while (str[i] != '\0')
 	{
-		if (str[i] == '%')
+		if (str[i] != '%')
+		{
+			ft_putchar(str[i]);
+			args_length++;
+			i++;
+		}
+		else
 		{
 			args_length += check_argument(str[i + 1], args);
 			i += 2;
 		}
-		ft_putchar(str[i]);
-		args_length++;
-		if (str[i])
-			i++;
 	}
 	va_end(args);
 	return (args_length);
@@ -52,7 +54,8 @@ int	ft_printf(const char *str, ...)
 
 int	main(void)
 {
-	printf("%d\n", 12342353);
-	ft_printf("%d", 12342353);
+	int i = -2147483648;
+	printf("%d\n", printf("%d\n", i));
+	ft_printf("%d\n", ft_printf("%d\n", i));
 	return (0);
 }
