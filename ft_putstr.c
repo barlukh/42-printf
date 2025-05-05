@@ -6,15 +6,17 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 14:24:42 by bgazur            #+#    #+#             */
-/*   Updated: 2025/05/05 14:26:36 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/05/05 15:13:07 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
 
-void	ft_putstr(char *s)
+int	ft_putstr(char *s)
 {
-	if (!s)
-		return ;
-	write(1, s, ft_strlen(s));
+	size_t	length;
+	
+	length = ft_strlen(s);
+	write(1, s, length);
+	return (length);
 }
