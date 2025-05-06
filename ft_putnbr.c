@@ -6,33 +6,27 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 15:42:51 by bgazur            #+#    #+#             */
-/*   Updated: 2025/05/05 17:30:28 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/05/06 12:12:50 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
 
-static void	ft_putnbr_recursion(int n, size_t *length)
+size_t  ft_putnbr(int n)
 {
-	if (n < 0)
-	{
-		*length += ft_putchar('-');
-		n = -n;
-	}
-	if (n > 9)
-		ft_putnbr_recursion(n / 10, length);
-	*length += ft_putchar('0' + (n % 10));
-}
+    size_t  length;
 
-size_t	ft_putnbr(int n)
-{
-	size_t	length;
-	
-	length = 0;
-	if (n == INT_MIN)
-		return (ft_putstr("-2147483648"));
-	else
-		ft_putnbr_recursion(n, &length);
-	
-	return (length);
+    length = 0;
+    if (n == INT_MIN)
+        return (ft_putstr("-2147483648"));
+    if (n < 0)
+    {
+        length += ft_putchar('-');
+        n = -n;
+    }
+    if (n > 9)
+        length += ft_putnbr(n / 10);
+    length += ft_putchar('0' + (n % 10));
+    
+    return (length);
 }
