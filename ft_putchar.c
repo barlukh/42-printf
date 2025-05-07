@@ -6,13 +6,13 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 13:07:57 by bgazur            #+#    #+#             */
-/*   Updated: 2025/05/05 15:40:04 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/05/07 07:04:42 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
 
-size_t	ft_putchar(char c)
+size_t	ft_putchar(int c)
 {
 	write(1, &c, 1);
 	return (1);
