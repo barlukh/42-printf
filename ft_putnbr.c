@@ -6,16 +6,18 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 15:42:51 by bgazur            #+#    #+#             */
-/*   Updated: 2025/05/06 17:35:34 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/05/07 09:21:11 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
 
-size_t	ft_putnbr(int n)
+size_t	ft_putnbr(int n, int base)
 {
+	char	*symbols;
 	size_t	length;
 
+	symbols = "0123456789abcdef";
 	length = 0;
 	if (n == INT_MIN)
 		return (ft_putstr("-2147483648"));
@@ -24,8 +26,8 @@ size_t	ft_putnbr(int n)
 		length += ft_putchar('-');
 		n = -n;
 	}
-	if (n > 9)
-		length += ft_putnbr(n / 10);
-	length += ft_putchar('0' + (n % 10));
+	if (n >= base)
+		length += ft_putnbr(n / base, base);
+	length += ft_putchar(symbols[n % base]);
 	return (length);
 }

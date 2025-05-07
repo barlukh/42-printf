@@ -6,17 +6,17 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 17:36:18 by bgazur            #+#    #+#             */
-/*   Updated: 2025/05/06 17:36:41 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/05/07 09:20:12 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libftprintf.h"
 #include <stdio.h>
 
 int	main(void)
 {
-	
-	int i = -2147;
-	printf("%d\n", printf("%d\n", i));
-	ft_printf("%d\n", ft_printf("%d\n", i));
+int n = -485;
+	printf("%d\n", printf("%d\n", n));
+	ft_printf("%d\n", ft_printf("%d\n", n));
 	return (0);
 }
