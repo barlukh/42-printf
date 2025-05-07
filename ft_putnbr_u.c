@@ -1,22 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_putnbr_u.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/06 17:36:18 by bgazur            #+#    #+#             */
-/*   Updated: 2025/05/07 11:54:46 by bgazur           ###   ########.fr       */
+/*   Created: 2025/05/07 12:35:10 by bgazur            #+#    #+#             */
+/*   Updated: 2025/05/07 13:41:38 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
-#include <stdio.h>
 
-int	main(void)
+/** Writes an unsigned integer into the standard output
+ * @param n Integer to write
+ * @param base Base of the integer
+ * @return Length of the integer
+ */
+size_t	ft_putnbr_u(unsigned int n, unsigned int base)
 {
-int n = -42;
-	printf("%d\n", printf("%u\n", n));
-	ft_printf("%d\n", ft_printf("%u\n", n));
-	return (0);
+	char			*charset_choice;
+	size_t			length;
+
+	charset_choice = "0123456789";
+	length = 0;
+	if (n >= base)
+		length += ft_putnbr_u(n / base, base);
+	length += ft_putchar(charset_choice[n % base]);
+	return (length);
 }
