@@ -6,12 +6,17 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 15:42:51 by bgazur            #+#    #+#             */
-/*   Updated: 2025/05/07 09:21:11 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/05/07 09:53:18 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
 
+/** Writes a number into the standard output
+ * @param n Number to write
+ * @param base Base of the number
+ * @return Length of the number
+ */
 size_t	ft_putnbr(int n, int base)
 {
 	char	*symbols;

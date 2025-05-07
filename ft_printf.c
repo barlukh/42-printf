@@ -6,28 +6,19 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 08:57:20 by bgazur            #+#    #+#             */
-/*   Updated: 2025/05/07 09:28:48 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/05/07 10:27:11 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
 
-static size_t	check_argument(char c, va_list *args)
-{
-	if (c == '%')
-		return (ft_putchar(c));
-	else if (c == 'c')
-		return (ft_putchar(va_arg(*args, int)));
-	else if (c == 's')
-		return (ft_putstr(va_arg(*args, char *)));
-	else if (c == 'd' || c == 'i')
-		return (ft_putnbr(va_arg(*args, int), 10));
-	else if (c == 'x')
-		return (ft_putnbr(va_arg(*args, int), 16));
-	else
-		return (0);
-}
+static	size_t	ft_parse_argument(int c, va_list *args);
 
+/** Writes a string with format specifiers into the standard output
+ * @param str String to write
+ * @param ... Additional variadic arguments matching format specifiers
+ * @return Length of the character
+ */
 int	ft_printf(const char *str, ...)
 {
 	va_list	args;
@@ -47,10 +38,31 @@ int	ft_printf(const char *str, ...)
 		}
 		else
 		{
-			length += check_argument(str[i + 1], &args);
+			length += ft_parse_argument(str[i + 1], &args);
 			i += 2;
 		}
 	}
 	va_end(args);
 	return (length);
+}
+
+/** Parses each variadic argument of the formatted string
+ * @param c Argument to parse
+ * @param args Object holding all variadic arguments
+ * @return Length of the string
+ */
+static size_t	ft_parse_argument(int c, va_list *args)
+{
+	if (c == '%')
+		return (ft_putchar(c));
+	else if (c == 'c')
+		return (ft_putchar(va_arg(*args, int)));
+	else if (c == 's')
+		return (ft_putstr(va_arg(*args, char *)));
+	else if (c == 'd' || c == 'i')
+		return (ft_putnbr(va_arg(*args, int), 10));
+	else if (c == 'x')
+		return (ft_putnbr(va_arg(*args, int), 16));
+	else
+		return (0);
 }
