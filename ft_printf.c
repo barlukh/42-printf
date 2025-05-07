@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 08:57:20 by bgazur            #+#    #+#             */
-/*   Updated: 2025/05/07 13:39:03 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/05/07 14:28:17 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,8 @@ static size_t	ft_parse_argument(int c, va_list *args)
 		return (ft_putnbr_s(va_arg(*args, int), BASE16, UPPERCASE));
 	else if (c == 'u')
 		return (ft_putnbr_u(va_arg(*args, unsigned int), BASE10));
+	else if (c == 'p')
+		return (ft_putnbr_p(va_arg(*args, uintptr_t), BASE16));
 	else
 		return (0);
 }

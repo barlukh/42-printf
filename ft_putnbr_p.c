@@ -1,22 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_putnbr_p.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/06 17:36:18 by bgazur            #+#    #+#             */
-/*   Updated: 2025/05/07 13:52:47 by bgazur           ###   ########.fr       */
+/*   Created: 2025/05/07 14:04:20 by bgazur            #+#    #+#             */
+/*   Updated: 2025/05/07 14:31:13 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
-#include <stdio.h>
 
-int	main(void)
+/** Writes a memory address of a pointer into the standard output
+ * @param n Integer to write
+ * @param base Base of the integer
+ * @return Length of the integer
+ */
+size_t	ft_putnbr_p(uintptr_t p, size_t base)
 {
-int n = -42;
-	printf("%d\n", printf("%p\n", &n));
-	ft_printf("%d\n", ft_printf("%p\n", &n));
-	return (0);
+	char			*charset_choice;
+	size_t			length;
+
+	charset_choice = "0123456789abcdef";
+	length = 0;
+	if (p >= base)
+		length += ft_putnbr_u(p / base, base);
+	length += ft_putchar(charset_choice[p % base]);
+	return (length);
 }
