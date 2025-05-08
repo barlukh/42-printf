@@ -6,7 +6,7 @@
 #    By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/05 09:01:15 by bgazur            #+#    #+#              #
-#    Updated: 2025/05/07 16:51:02 by bgazur           ###   ########.fr        #
+#    Updated: 2025/05/08 10:50:29 by bgazur           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,9 +33,5 @@ fclean: clean
 	$(RM) $(NAME)
 
 re: fclean all
-
-run: $(NAME)
-	$(CC) $(CFLAGS) main.c $(NAME)
-	./a.out
 
 .PHONY: all clean fclean re

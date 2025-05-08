@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 14:24:42 by bgazur            #+#    #+#             */
-/*   Updated: 2025/05/08 07:45:34 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/05/08 10:56:19 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 size_t	ft_putstr(char *s)
 {
 	size_t	length;
-	char 	*null_s;
+	char	*null_s;
 
 	length = 0;
 	if (!s)

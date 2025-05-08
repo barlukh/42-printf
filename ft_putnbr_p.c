@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 14:04:20 by bgazur            #+#    #+#             */
-/*   Updated: 2025/05/08 08:44:10 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/05/08 10:57:09 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ size_t	ft_putnbr_p(uintptr_t p, size_t base)
 	size_t			length;
 
 	if (p == 0)
-		return(ft_putstr("(nil)"));
+		return (ft_putstr("(nil)"));
 	charset = "0123456789abcdef";
 	length = 0;
 	if (p >= base)

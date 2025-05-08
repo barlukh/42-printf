@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 15:42:51 by bgazur            #+#    #+#             */
-/*   Updated: 2025/05/08 09:18:38 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/05/08 10:56:42 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ size_t	ft_putnbr_s(int n, int base)
 	char	*charset;
 	size_t	length;
 
-	charset  = "0123456789";
+	charset = "0123456789";
 	length = 0;
 	if (n == INT_MIN)
 		return (ft_putstr("-2147483648"));
