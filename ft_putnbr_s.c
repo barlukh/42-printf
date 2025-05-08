@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 15:42:51 by bgazur            #+#    #+#             */
-/*   Updated: 2025/05/08 10:56:42 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/05/08 14:10:58 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 /** Writes a signed integer into the standard output
  * @param n Integer to write
  * @param base Base of the integer
- * @param style Style format indicator for hexadecimal letters
  * @return Length of the integer
  */
 size_t	ft_putnbr_s(int n, int base)

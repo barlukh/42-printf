@@ -6,13 +6,13 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 08:57:20 by bgazur            #+#    #+#             */
-/*   Updated: 2025/05/08 09:17:51 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/05/08 14:17:06 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static	size_t	ft_parse_argument(char c, va_list *args);
+static size_t	ft_parse_argument(char c, va_list *args);
 
 /** Writes a string with format specifiers into the standard output
  * @param str String to write
@@ -58,7 +58,7 @@ static size_t	ft_parse_argument(char c, va_list *args)
 	else if (c == 'c')
 		return (ft_putchar(va_arg(*args, int)));
 	else if (c == 's')
-		return (ft_putstr(va_arg(*args, char *)));
+		return (ft_putstr(va_arg(*args, const char *)));
 	else if (c == 'd' || c == 'i')
 		return (ft_putnbr_s(va_arg(*args, int), BASE10));
 	else if (c == 'u')

@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 14:24:42 by bgazur            #+#    #+#             */
-/*   Updated: 2025/05/08 10:56:19 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/05/08 14:15:57 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
  * @param s String to write
  * @return Length of the string
  */
-size_t	ft_putstr(char *s)
+size_t	ft_putstr(const char *s)
 {
 	size_t	length;
 	char	*null_s;
