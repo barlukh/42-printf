@@ -6,13 +6,13 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 08:57:20 by bgazur            #+#    #+#             */
-/*   Updated: 2025/05/07 16:15:56 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/05/08 08:16:34 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libftprintf.h"
+#include "ft_printf.h"
 
-static	size_t	ft_parse_argument(int c, va_list *args);
+static	size_t	ft_parse_argument(char c, va_list *args);
 
 /** Writes a string with format specifiers into the standard output
  * @param str String to write
@@ -51,7 +51,7 @@ int	ft_printf(const char *str, ...)
  * @param args Object holding all variadic arguments
  * @return Length of the string
  */
-static size_t	ft_parse_argument(int c, va_list *args)
+static size_t	ft_parse_argument(char c, va_list *args)
 {
 	if (c == '%')
 		return (ft_putchar(c));
