@@ -6,16 +6,12 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 14:24:42 by bgazur            #+#    #+#             */
-/*   Updated: 2025/05/08 14:15:57 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/05/08 16:29:02 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-/** Writes a string into the standard output
- * @param s String to write
- * @return Length of the string
- */
 size_t	ft_putstr(const char *s)
 {
 	size_t	length;

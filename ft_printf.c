@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 08:57:20 by bgazur            #+#    #+#             */
-/*   Updated: 2025/05/08 16:16:22 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/05/08 16:26:21 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,6 @@
 
 static size_t	ft_parse_argument(char c, va_list *args);
 
-/** Writes a string with format specifiers into the standard output
- * @param str String to write
- * @param ... Additional variadic arguments matching format specifiers
- * @return Length of the character
- */
 int	ft_printf(const char *str, ...)
 {
 	va_list	args;

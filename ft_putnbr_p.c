@@ -6,17 +6,12 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 14:04:20 by bgazur            #+#    #+#             */
-/*   Updated: 2025/05/08 10:57:09 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/05/08 16:27:55 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-/** Writes a memory address of a pointer into the standard output
- * @param p Memory address to write (represented as an integer)
- * @param base Base of the integer
- * @return Length of the integer
- */
 size_t	ft_putnbr_p(uintptr_t p, size_t base)
 {
 	char			*charset;
