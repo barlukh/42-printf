@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 15:42:51 by bgazur            #+#    #+#             */
-/*   Updated: 2025/05/08 07:56:45 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/05/08 09:18:38 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,19 +18,12 @@
  * @param style Style format indicator for hexadecimal letters
  * @return Length of the integer
  */
-size_t	ft_putnbr_s(int n, int base, int style)
+size_t	ft_putnbr_s(int n, int base)
 {
-	char	*charset_lower;
-	char	*charset_upper;
 	char	*charset;
 	size_t	length;
 
-	charset_lower = "0123456789abcdef";
-	charset_upper = "0123456789ABCDEF";
-	if (style == DIGIT || style == LOWERCASE)
-		charset = charset_lower;
-	else
-		charset = charset_upper;
+	charset  = "0123456789";
 	length = 0;
 	if (n == INT_MIN)
 		return (ft_putstr("-2147483648"));
@@ -40,7 +33,7 @@ size_t	ft_putnbr_s(int n, int base, int style)
 		n = -n;
 	}
 	if (n >= base)
-		length += ft_putnbr_s(n / base, base, style);
+		length += ft_putnbr_s(n / base, base);
 	length += ft_putchar(charset[n % base]);
 	return (length);
 }

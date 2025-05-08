@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 08:57:20 by bgazur            #+#    #+#             */
-/*   Updated: 2025/05/08 08:16:34 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/05/08 09:17:51 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,13 +60,13 @@ static size_t	ft_parse_argument(char c, va_list *args)
 	else if (c == 's')
 		return (ft_putstr(va_arg(*args, char *)));
 	else if (c == 'd' || c == 'i')
-		return (ft_putnbr_s(va_arg(*args, int), BASE10, DIGIT));
-	else if (c == 'x')
-		return (ft_putnbr_s(va_arg(*args, int), BASE16, LOWERCASE));
-	else if (c == 'X')
-		return (ft_putnbr_s(va_arg(*args, int), BASE16, UPPERCASE));
+		return (ft_putnbr_s(va_arg(*args, int), BASE10));
 	else if (c == 'u')
-		return (ft_putnbr_u(va_arg(*args, unsigned int), BASE10));
+		return (ft_putnbr_u(va_arg(*args, unsigned int), BASE10, DIGIT));
+	else if (c == 'x')
+		return (ft_putnbr_u(va_arg(*args, unsigned int), BASE16, LOWERCASE));
+	else if (c == 'X')
+		return (ft_putnbr_u(va_arg(*args, unsigned int), BASE16, UPPERCASE));
 	else if (c == 'p')
 		return (ft_putnbr_p(va_arg(*args, uintptr_t), BASE16));
 	else

@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 12:35:10 by bgazur            #+#    #+#             */
-/*   Updated: 2025/05/08 08:45:17 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/05/08 09:21:21 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,22 @@
  * @param base Base of the integer
  * @return Length of the integer
  */
-size_t	ft_putnbr_u(unsigned int n, unsigned int base)
+size_t	ft_putnbr_u(unsigned int n, unsigned int base, int style)
 {
-	char			*charset;
-	size_t			length;
+	char	*charset_lower;
+	char	*charset_upper;
+	char	*charset;
+	size_t	length;
 
-	charset = "0123456789";
+	charset_lower = "0123456789abcdef";
+	charset_upper = "0123456789ABCDEF";
+	if (style == DIGIT || style == LOWERCASE)
+		charset = charset_lower;
+	else
+		charset = charset_upper;
 	length = 0;
 	if (n >= base)
-		length += ft_putnbr_u(n / base, base);
+		length += ft_putnbr_u(n / base, base, style);
 	length += ft_putchar(charset[n % base]);
 	return (length);
 }
