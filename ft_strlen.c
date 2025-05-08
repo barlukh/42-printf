@@ -6,11 +6,11 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 14:31:08 by bgazur            #+#    #+#             */
-/*   Updated: 2025/05/07 09:53:26 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/05/07 16:42:04 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libftprintf.h"
+#include "ft_printf.h"
 
 /** Counts the length of a string
  * @param s String to determine the length of
