@@ -6,11 +6,11 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 14:04:20 by bgazur            #+#    #+#             */
-/*   Updated: 2025/05/07 16:19:14 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/05/07 16:41:52 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libftprintf.h"
+#include "ft_printf.h"
 
 /** Writes a memory address of a pointer into the standard output
  * @param p Memory address to write (represented as an integer)

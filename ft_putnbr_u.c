@@ -6,11 +6,11 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 12:35:10 by bgazur            #+#    #+#             */
-/*   Updated: 2025/05/07 14:31:08 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/05/07 16:42:00 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libftprintf.h"
+#include "ft_printf.h"
 
 /** Writes an unsigned integer into the standard output
  * @param n Integer to write
