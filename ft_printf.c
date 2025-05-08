@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 08:57:20 by bgazur            #+#    #+#             */
-/*   Updated: 2025/05/08 14:17:06 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/05/08 16:16:22 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ int	ft_printf(const char *str, ...)
 		}
 		else
 		{
+			if (str[i + 1] == '\0')
+				break ;
 			length += ft_parse_argument(str[i + 1], &args);
 			i += 2;
 		}
