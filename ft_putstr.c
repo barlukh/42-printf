@@ -6,28 +6,22 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 14:24:42 by bgazur            #+#    #+#             */
-/*   Updated: 2025/05/08 16:29:02 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/05/09 12:14:13 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-size_t	ft_putstr(const char *s)
+void	ft_putstr(const char *s, int *len, int *err)
 {
-	size_t	length;
-	char	*null_s;
+	size_t		i;
 
-	length = 0;
+	i = 0;
 	if (!s)
+		s = "(null)";
+	while (s[i] != '\0')
 	{
-		null_s = "(null)";
-		length = ft_strlen(null_s);
-		write(1, null_s, length);
+		ft_putchar(s[i], len, err);
+		i++;
 	}
-	else
-	{
-		length = ft_strlen(s);
-		write(1, s, length);
-	}
-	return (length);
 }

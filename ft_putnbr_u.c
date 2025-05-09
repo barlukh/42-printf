@@ -6,28 +6,27 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 12:35:10 by bgazur            #+#    #+#             */
-/*   Updated: 2025/05/08 16:28:32 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/05/09 12:05:25 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-size_t	ft_putnbr_u(unsigned int n, unsigned int base, int style)
+void	ft_putnbr_u(unsigned int n, unsigned int base, int style, int *len, int *err)
 {
-	char	*charset_lower;
-	char	*charset_upper;
+	char	*charset_lcase;
+	char	*charset_ucase;
 	char	*charset;
-	size_t	length;
+	int		length;
 
-	charset_lower = "0123456789abcdef";
-	charset_upper = "0123456789ABCDEF";
-	if (style == DIGIT || style == LOWERCASE)
-		charset = charset_lower;
+	charset_lcase = "0123456789abcdef";
+	charset_ucase = "0123456789ABCDEF";
+	if (style == DIGIT || style == LCASE)
+		charset = charset_lcase;
 	else
-		charset = charset_upper;
+		charset = charset_ucase;
 	length = 0;
 	if (n >= base)
-		length += ft_putnbr_u(n / base, base, style);
-	length += ft_putchar(charset[n % base]);
-	return (length);
+		ft_putnbr_u(n / base, base, style, len, err);
+	ft_putchar(charset[n % base], len, err);
 }

@@ -6,41 +6,44 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 08:57:20 by bgazur            #+#    #+#             */
-/*   Updated: 2025/05/08 16:26:21 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/05/09 12:12:23 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static size_t	ft_parse_argument(char c, va_list *args);
+static void	ft_parse_argument(char c, va_list *args, int *length, int *err);
 
 int	ft_printf(const char *str, ...)
 {
 	va_list	args;
-	size_t	length;
+	int		err;
+	int		len;
 	size_t	i;
 
 	va_start(args, str);
-	length = 0;
+	err = FALSE;
+	len = 0;
 	i = 0;
 	while (str[i] != '\0')
 	{
 		if (str[i] != '%')
 		{
-			ft_putchar(str[i]);
-			length++;
+			ft_putchar(str[i], &len, &err);
 			i++;
 		}
 		else
 		{
 			if (str[i + 1] == '\0')
 				break ;
-			length += ft_parse_argument(str[i + 1], &args);
+			ft_parse_argument(str[i + 1], &args, &len, &err);
 			i += 2;
 		}
+		if (err == TRUE)
+				break ;
 	}
 	va_end(args);
-	return (length);
+	return (len);
 }
 
 /** Parses each variadic argument of the formatted string
@@ -48,24 +51,24 @@ int	ft_printf(const char *str, ...)
  * @param args Object holding all variadic arguments
  * @return Length of the string
  */
-static size_t	ft_parse_argument(char c, va_list *args)
+static void	ft_parse_argument(char c, va_list *args, int *len, int *err)
 {
 	if (c == '%')
-		return (ft_putchar(c));
+		ft_putchar(c, len, err);
 	else if (c == 'c')
-		return (ft_putchar(va_arg(*args, int)));
+		ft_putchar(va_arg(*args, int), len, err);
 	else if (c == 's')
-		return (ft_putstr(va_arg(*args, const char *)));
+		ft_putstr(va_arg(*args, const char *), len, err);
 	else if (c == 'd' || c == 'i')
-		return (ft_putnbr_s(va_arg(*args, int), BASE10));
+		ft_putnbr_s(va_arg(*args, int), BASE10, len, err);
 	else if (c == 'u')
-		return (ft_putnbr_u(va_arg(*args, unsigned int), BASE10, DIGIT));
+		ft_putnbr_u(va_arg(*args, unsigned int), BASE10, DIGIT, len, err);
 	else if (c == 'x')
-		return (ft_putnbr_u(va_arg(*args, unsigned int), BASE16, LOWERCASE));
+		ft_putnbr_u(va_arg(*args, unsigned int), BASE16, LCASE, len, err);
 	else if (c == 'X')
-		return (ft_putnbr_u(va_arg(*args, unsigned int), BASE16, UPPERCASE));
+		ft_putnbr_u(va_arg(*args, unsigned int), BASE16, UCASE, len, err);
 	else if (c == 'p')
-		return (ft_putnbr_p(va_arg(*args, uintptr_t), BASE16));
+		ft_putnbr_p(va_arg(*args, uintptr_t), BASE16, len, err);
 	else
-		return (0);
+		return ;
 }
