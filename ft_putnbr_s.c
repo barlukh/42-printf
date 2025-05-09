@@ -6,27 +6,28 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 15:42:51 by bgazur            #+#    #+#             */
-/*   Updated: 2025/05/09 12:05:17 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/05/09 15:33:08 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void	ft_putnbr_s(int n, int base, int *len, int *err)
+void	ft_putnbr_s(int n, int base, t_out *outp)
 {
-	char	*charset;
-	int		length;
+	const char	*charset;
 
 	charset = "0123456789";
-	length = 0;
 	if (n == INT_MIN)
-		ft_putstr("-2147483648", len, err);
+	{
+		ft_putstr("-2147483648", outp);
+		return ;
+	}
 	if (n < 0)
 	{
-		ft_putchar('-', len, err);
+		ft_putchar('-', outp);
 		n = -n;
 	}
 	if (n >= base)
-		ft_putnbr_s(n / base, base, len, err);
-	ft_putchar(charset[n % base], len, err);
+		ft_putnbr_s(n / base, base, outp);
+	ft_putchar(charset[n % base], outp);
 }

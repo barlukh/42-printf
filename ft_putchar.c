@@ -6,19 +6,19 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 13:07:57 by bgazur            #+#    #+#             */
-/*   Updated: 2025/05/09 12:21:53 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/05/09 15:14:50 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void	ft_putchar(int c, int *len, int *err)
+void	ft_putchar(int c, t_out *outp)
 {
 	if (write(1, &c, 1) < 1)
 	{
-		*len = -1;
-		*err = TRUE;
+		outp->len = -1;
+		outp->err = TRUE;
 	}
 	else
-		(*len)++;
+		(outp->len)++;
 }
