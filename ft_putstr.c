@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 14:24:42 by bgazur            #+#    #+#             */
-/*   Updated: 2025/05/10 15:27:25 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/05/10 15:29:51 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	ft_putstr(const char *s)
 {
-	size_t		i;
+	int	i;
 
 	if (!s)
 		s = "(null)";
