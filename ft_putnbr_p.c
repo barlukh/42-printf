@@ -6,25 +6,29 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 14:04:20 by bgazur            #+#    #+#             */
-/*   Updated: 2025/05/09 15:32:02 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/05/10 16:45:14 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void	ft_putnbr_p(uintptr_t p, size_t base, t_out *outp)
+int	ft_putnbr_p(uintptr_t p, size_t base)
 {
 	const char	*charset;
+	int			count;
 
 	if (p == 0)
-	{
-		ft_putstr("(nil)", outp);
-		return ;
-	}
+		return (ft_putstr("(nil)"));
 	charset = "0123456789abcdef";
+	count = 0;
 	if (p >= base)
-		ft_putnbr_p(p / base, base, outp);
+		count += ft_putnbr_p(p / base, base);
 	if (p < base)
-		ft_putstr("0x", outp);
-	ft_putchar(charset[p % base], outp);
+		count += ft_putstr("0x");
+	if (count == -1)
+		return (-1);
+	if (ft_putchar(charset[p % base]) < 1)
+		return (-1);
+	count++;
+	return (count);
 }

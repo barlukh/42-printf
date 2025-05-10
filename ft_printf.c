@@ -6,65 +6,85 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 08:57:20 by bgazur            #+#    #+#             */
-/*   Updated: 2025/05/09 15:54:36 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/05/10 17:24:08 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static void	ft_parse_argument(char c, va_list *args, t_out *outp);
+static void	ft_plain_character(const char *s, size_t *i, int *count);
+static void	ft_format_specifier(const char *s, size_t *i, int *count, va_list *args);
+static int	ft_parse_argument(char c, va_list *args);
 
-int	ft_printf(const char *str, ...)
+int	ft_printf(const char *s, ...)
 {
 	va_list	args;
-	t_out	outp;
+	int		count;
 	size_t	i;
 
-	va_start(args, str);
-	outp.err = FALSE;
-	outp.len = 0;
+	if (!s)
+		return (-1);
+	va_start(args, s);
+	count = 0;
 	i = 0;
-	while (str[i] != '\0')
+	while (s[i] != '\0')
 	{
-		if (str[i] != '%')
-			ft_putchar(str[i++], &outp);
+		if (s[i] != '%')
+			ft_plain_character(s, &i, &count);
 		else
-		{
-			if (str[i + 1] == '\0')
-				break ;
-			ft_parse_argument(str[i + 1], &args, &outp);
-			i += 2;
-		}
-		if (outp.err == TRUE)
-			break ;
+			ft_format_specifier(s, &i, &count, &args);
+		if (count == -1)
+			return (-1);
 	}
 	va_end(args);
-	return (outp.len);
+	return (count);
+}
+
+static void	ft_plain_character(const char *s, size_t *i, int *count)
+{
+	if (ft_putchar(s[(*i)++]) < 1)
+		*count = -1;
+	else
+		(*count)++;
+}
+
+static void	ft_format_specifier(const char *s, size_t *i, int *count, va_list *args)
+{
+	int	check;
+
+	check = ft_parse_argument(s[(*i) + 1], args);
+	if (check == -1)
+	{
+		*count = -1;
+		return ;
+	}
+	*count += check;
+	*i += 2;
 }
 
 /** Parses each variadic argument of the formatted string
  * @param c Argument to parse
  * @param args Object holding all variadic arguments
- * @param outp err: a bool error flag, len: output length
+ * @return Number of characters written, -1 on error
  */
-static void	ft_parse_argument(char c, va_list *args, t_out *outp)
+static int	ft_parse_argument(char c, va_list *args)
 {
 	if (c == '%')
-		ft_putchar(c, outp);
+		return (ft_putchar(c));
 	else if (c == 'c')
-		ft_putchar(va_arg(*args, int), outp);
+		return (ft_putchar(va_arg(*args, int)));
 	else if (c == 's')
-		ft_putstr(va_arg(*args, const char *), outp);
+		return (ft_putstr(va_arg(*args, const char *)));
 	else if (c == 'd' || c == 'i')
-		ft_putnbr_s(va_arg(*args, int), BASE10, outp);
+		return (ft_putnbr_s(va_arg(*args, int), BASE10));
 	else if (c == 'u')
-		ft_putnbr_u(va_arg(*args, unsigned int), BASE10, DIGIT, outp);
+		return (ft_putnbr_u(va_arg(*args, unsigned int), BASE10, DIGIT));
 	else if (c == 'x')
-		ft_putnbr_u(va_arg(*args, unsigned int), BASE16, LCASE, outp);
+		return (ft_putnbr_u(va_arg(*args, unsigned int), BASE16, LCASE));
 	else if (c == 'X')
-		ft_putnbr_u(va_arg(*args, unsigned int), BASE16, UCASE, outp);
+		return (ft_putnbr_u(va_arg(*args, unsigned int), BASE16, UCASE));
 	else if (c == 'p')
-		ft_putnbr_p(va_arg(*args, uintptr_t), BASE16, outp);
+		return (ft_putnbr_p(va_arg(*args, uintptr_t), BASE16));
 	else
-		return ;
+		return (-1);
 }

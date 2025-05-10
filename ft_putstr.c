@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 14:24:42 by bgazur            #+#    #+#             */
-/*   Updated: 2025/05/10 15:45:58 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/05/10 15:52:45 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,16 @@
 
 int	ft_putstr(const char *s)
 {
-	int	i;
+	int	count;
 
 	if (!s)
 		s = "(null)";
-	i = 0;
-	while (s[i] != '\0')
+	count = 0;
+	while (s[count] != '\0')
 	{
-		if (ft_putchar(s[i]) < 1)
+		if (ft_putchar(s[count]) < 1)
 			return (-1);
-		i++;
+		count++;
 	}
-	return (i);
+	return (count);
 }

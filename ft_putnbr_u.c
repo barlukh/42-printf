@@ -6,17 +6,18 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 12:35:10 by bgazur            #+#    #+#             */
-/*   Updated: 2025/05/09 15:51:34 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/05/10 16:45:48 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void	ft_putnbr_u(unsigned int n, unsigned int base, int style, t_out *outp)
+int	ft_putnbr_u(unsigned int n, unsigned int base, int style)
 {
 	const char	*charset_lcase;
 	const char	*charset_ucase;
 	const char	*charset;
+	int			count;
 
 	charset_lcase = "0123456789abcdef";
 	charset_ucase = "0123456789ABCDEF";
@@ -24,7 +25,11 @@ void	ft_putnbr_u(unsigned int n, unsigned int base, int style, t_out *outp)
 		charset = charset_lcase;
 	else
 		charset = charset_ucase;
+	count = 0;
 	if (n >= base)
-		ft_putnbr_u(n / base, base, style, outp);
-	ft_putchar(charset[n % base], outp);
+		count += ft_putnbr_u(n / base, base, style);
+	if (ft_putchar(charset[n % base]) < 1)
+		return (-1);
+	count++;
+	return (count);
 }
