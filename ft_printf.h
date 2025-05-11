@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 08:58:29 by bgazur            #+#    #+#             */
-/*   Updated: 2025/05/11 09:05:57 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/05/11 09:37:12 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ int	ft_putchar(int c);
 
 /** Writes a memory address of a pointer into the standard output
  * @param p Memory address to write (represented as an integer)
- * @param base Base of the integer
  * @return Number of characters written, -1 on error
  */
 int	ft_putnbr_p(uintptr_t p);

@@ -6,15 +6,14 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 08:57:20 by bgazur            #+#    #+#             */
-/*   Updated: 2025/05/11 09:06:11 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/05/11 09:30:39 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static void	ft_plain_character(const char *s, size_t *i, int *count);
-static void	ft_format_specifier(const char *s, size_t *i, int *count, va_list *args);
-static int	ft_parse_argument(char c, va_list *args);
+static void	ft_parse_character(const char *s, size_t *i, int *count, va_list *args);
+static int	ft_parse_format(char c, va_list *args);
 
 int	ft_printf(const char *s, ...)
 {
@@ -29,10 +28,7 @@ int	ft_printf(const char *s, ...)
 	i = 0;
 	while (s[i] != '\0')
 	{
-		if (s[i] != '%')
-			ft_plain_character(s, &i, &count);
-		else
-			ft_format_specifier(s, &i, &count, &args);
+		ft_parse_character(s, &i, &count, &args);
 		if (count == -1)
 			return (-1);
 	}
@@ -40,32 +36,35 @@ int	ft_printf(const char *s, ...)
 	return (count);
 }
 
-// Parses plain characters of the formatted string
-static void	ft_plain_character(const char *s, size_t *i, int *count)
-{
-	if (ft_putchar(s[(*i)++]) < 1)
-		*count = -1;
-	else
-		(*count)++;
-}
-
-// Parses format specifiers of the formatted string
-static void	ft_format_specifier(const char *s, size_t *i, int *count, va_list *args)
+// Parses each character of the formatted string
+static void	ft_parse_character(const char *s, size_t *i, int *count, va_list *args)
 {
 	int	check;
 
-	check = ft_parse_argument(s[(*i) + 1], args);
-	if (check == -1)
+	check = 0;
+	if (s[*i] != '%')
 	{
-		*count = -1;
-		return ;
+		if (ft_putchar(s[(*i)]) < 1)
+			*count = -1;
+		else
+			(*count)++;
+		(*i)++;
 	}
-	*count += check;
-	*i += 2;
+	else
+	{
+		check = ft_parse_format(s[(*i) + 1], args);
+		if (check == -1)
+		{
+			*count = -1;
+			return ;
+		}
+		*count += check;
+		*i += 2;
+	}
 }
 
-// Parses each variadic argument of the formatted string
-static int	ft_parse_argument(char c, va_list *args)
+// Parses each variadic argument of the format specifier
+static int	ft_parse_format(char c, va_list *args)
 {
 	if (c == '%')
 		return (ft_putchar(c));
