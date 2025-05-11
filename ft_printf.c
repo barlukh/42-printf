@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 08:57:20 by bgazur            #+#    #+#             */
-/*   Updated: 2025/05/10 17:24:08 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/05/11 08:34:15 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ int	ft_printf(const char *s, ...)
 	return (count);
 }
 
+// Parses plain characters of the formatted string
 static void	ft_plain_character(const char *s, size_t *i, int *count)
 {
 	if (ft_putchar(s[(*i)++]) < 1)
@@ -48,6 +49,7 @@ static void	ft_plain_character(const char *s, size_t *i, int *count)
 		(*count)++;
 }
 
+// Parses format specifiers of the formatted string
 static void	ft_format_specifier(const char *s, size_t *i, int *count, va_list *args)
 {
 	int	check;
@@ -62,11 +64,7 @@ static void	ft_format_specifier(const char *s, size_t *i, int *count, va_list *a
 	*i += 2;
 }
 
-/** Parses each variadic argument of the formatted string
- * @param c Argument to parse
- * @param args Object holding all variadic arguments
- * @return Number of characters written, -1 on error
- */
+// Parses each variadic argument of the formatted string
 static int	ft_parse_argument(char c, va_list *args)
 {
 	if (c == '%')
