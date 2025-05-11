@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 08:58:29 by bgazur            #+#    #+#             */
-/*   Updated: 2025/05/10 16:44:34 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/05/11 09:05:57 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,9 @@
 
 # define BASE10 10
 # define BASE16 16
-# define DIGIT 0
-# define LCASE 1
-# define UCASE 2
-# define FALSE 0
-# define TRUE 1
+# define DECIMAL "0123456789"
+# define HEX_LCASE "0123456789abcdef"
+# define HEX_UCASE "0123456789ABCDEF"
 
 /** Writes a string with format specifiers into the standard output
  * @param s String to write
@@ -44,14 +42,13 @@ int	ft_putchar(int c);
  * @param base Base of the integer
  * @return Number of characters written, -1 on error
  */
-int	ft_putnbr_p(uintptr_t p, size_t base);
+int	ft_putnbr_p(uintptr_t p);
 
 /** Writes a signed integer into the standard output
  * @param n Integer to write
- * @param base Base of the integer
  * @return Number of characters written, -1 on error
  */
-int	ft_putnbr_s(int n, int base);
+int	ft_putnbr_s(int n);
 
 /** Writes an unsigned integer into the standard output
  * @param n Integer to write
@@ -59,7 +56,7 @@ int	ft_putnbr_s(int n, int base);
  * @param style Style format indicator for hexadecimal letters
  * @return Number of characters written, -1 on error
  */
-int	ft_putnbr_u(unsigned int n, unsigned int base, int style);
+int	ft_putnbr_u(unsigned int n, unsigned int base, const char *style);
 
 /** Writes a string into the standard output
  * @param s String to write

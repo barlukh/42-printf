@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 08:57:20 by bgazur            #+#    #+#             */
-/*   Updated: 2025/05/11 08:34:15 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/05/11 09:06:11 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,15 +74,15 @@ static int	ft_parse_argument(char c, va_list *args)
 	else if (c == 's')
 		return (ft_putstr(va_arg(*args, const char *)));
 	else if (c == 'd' || c == 'i')
-		return (ft_putnbr_s(va_arg(*args, int), BASE10));
+		return (ft_putnbr_s(va_arg(*args, int)));
 	else if (c == 'u')
-		return (ft_putnbr_u(va_arg(*args, unsigned int), BASE10, DIGIT));
+		return (ft_putnbr_u(va_arg(*args, unsigned int), BASE10, DECIMAL));
 	else if (c == 'x')
-		return (ft_putnbr_u(va_arg(*args, unsigned int), BASE16, LCASE));
+		return (ft_putnbr_u(va_arg(*args, unsigned int), BASE16, HEX_LCASE));
 	else if (c == 'X')
-		return (ft_putnbr_u(va_arg(*args, unsigned int), BASE16, UCASE));
+		return (ft_putnbr_u(va_arg(*args, unsigned int), BASE16, HEX_UCASE));
 	else if (c == 'p')
-		return (ft_putnbr_p(va_arg(*args, uintptr_t), BASE16));
+		return (ft_putnbr_p(va_arg(*args, uintptr_t)));
 	else
 		return (-1);
 }

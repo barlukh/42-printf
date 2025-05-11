@@ -1,116 +1,111 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   test.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/07 14:05:45 by jinzhang          #+#    #+#             */
-/*   Updated: 2025/05/10 17:21:02 by bgazur           ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+// clang emits a warning if you try to print a NULL string. That warning is
+// disabled here, so that we can test with NULL strings.
+#ifndef __clang__
+#pragma GCC diagnostic ignored "-Wformat-overflow"
+#endif
 
-
-#include <stdio.h>
-#include <limits.h>
 #include <fcntl.h>
+#include <limits.h>
+#include <stdio.h>
+#include <string.h>
+#include <unistd.h>
+
 #include "ft_printf.h"
 
-int	main(void)
+// ANSI escape codes.
+#define ANSI_GREEN  "\e[1;32m" // Set the text color to green.
+#define ANSI_RED    "\e[1;31m" // Set the text color to red.
+#define ANSI_YELLOW "\e[1;33m" // Set the text color to yellow.
+#define ANSI_RESET  "\e[0m"    // Reset to default color.
+#define ANSI_CLEAR  "\e[2J"    // Clear the screen.
+
+// Color-coded OK and KO strings.
+#define GREEN_OK (ANSI_GREEN "[OK]" ANSI_RESET)
+#define RED_KO   (ANSI_RED   "[KO]" ANSI_RESET)
+
+// Helper macro for printing to standard error output. This is used for
+// displaying the results, since standard output is redirected during testing.
+#define PRINT(...) fprintf(stderr, __VA_ARGS__)
+
+// Run a test case.
+#define TEST_CASE(...) do {													\
+																			\
+		/* Write the output of ft_printf to buffer `a` */					\
+		char a[1000] = {0};													\
+		ftruncate(1, 0);													\
+		lseek(1, 0, SEEK_SET);												\
+		int a_return = ft_printf(__VA_ARGS__);								\
+		lseek(1, 0, SEEK_SET);												\
+		int a_length = read(1, a, sizeof(a));								\
+																			\
+		/* Write the output of printf to buffer `b` */						\
+		char b[1000] = {0};													\
+		ftruncate(1, 0);													\
+		lseek(1, 0, SEEK_SET);												\
+		int b_return = printf(__VA_ARGS__);									\
+		fflush(stdout);														\
+		lseek(1, 0, SEEK_SET);												\
+		int b_length = read(1, b, sizeof(b));								\
+																			\
+		/* Compare the output of the two functions */						\
+		int lengths_match = a_return == b_return && a_length == b_length;	\
+		int match = lengths_match && memcmp(a, b, a_length) == 0;			\
+																			\
+		/* Print OK or KO next to the function input */						\
+		PRINT("%s ", match ? GREEN_OK : RED_KO);							\
+		PRINT("printf(%s)\n", #__VA_ARGS__);								\
+																			\
+		/* Print the full output of ft_printf and printf */					\
+		PRINT("    ft_printf: \"" ANSI_YELLOW "%.*s", a_length, a);			\
+		PRINT(ANSI_RESET "\" (returned %d)\n", a_return);					\
+		PRINT("       printf: \"" ANSI_YELLOW "%.*s", b_length, b);			\
+		PRINT(ANSI_RESET "\" (returned %d)\n\n", b_return);					\
+																			\
+		/* Keep a tally of tests/passes */									\
+		total_passed += !!match;											\
+		total_tested++;														\
+	} while (0)
+
+int main()
 {
-	int 			mine_return = 0;
-	int 			std_return = 0;
-	char 			a = 'A';
-	char 			*b= NULL;
-	int				c = 0;
-	int				d = -420;
-	unsigned int 	e = INT_MIN;
-	unsigned int 	f = 255;
-	unsigned int 	g = 27544355;
+	// Variables for tallying how many test cases passed or failed.
+	int total_passed = 0;
+	int total_tested = 0;
 
-	mine_return = ft_printf("Mine: Hex: %x\n", 0);
-	std_return = printf("Std : Hex: %x\n", 0);
-	printf("Returns: ft_printf = %d, printf = %d\n\n", mine_return, std_return);
+	// Clear the screen.
+	printf(ANSI_CLEAR);
+	fflush(stdout);
 
-	mine_return = ft_printf("Mine: HEX: %X\n", 305441741); 
-	std_return = printf("Std : HEX: %X\n", 305441741);
-	printf("Returns: ft_printf = %d, printf = %d\n\n", mine_return, std_return);
+	// Open a temporary file and redirect standard output to that file.
+	int temporary_file = open("temp", O_RDWR | O_CREAT, 0666);
+	unlink("temp"); // Remove the file (it disappears the moment it's closed).
+	dup2(temporary_file, 1); // All writes to 1 actually go to temporary_file.
 
-    mine_return = ft_printf("Mine: Large hex: %x\n", UINT_MAX);
-    std_return  = printf("Std : Large hex: %x\n", UINT_MAX);
-    printf("Returns: mine=%d, std=%d\n\n", mine_return, std_return);
+	// Run test cases (see macro above).
+	TEST_CASE("string");
+	TEST_CASE("percent sign: 100%%");
+	TEST_CASE("character: %c", '@');
+	TEST_CASE("string: %s", "hello");
+	TEST_CASE("null string: %s", (char*) NULL);
+	TEST_CASE("zero: %d", 0);
+	TEST_CASE("positive decimal: %i", 69);
+	TEST_CASE("negative decimal: %d", -42);
+	TEST_CASE("hexadecimal: %x", 0xc0de);
+	TEST_CASE("hexadecimal zero: %x", 0);
+	TEST_CASE("hexadecimal uppercase: %X", 0xBEEF);
+	TEST_CASE("hexadecimal negative: %X", -0xff);
+	TEST_CASE("valid pointer: %p", main);
+	TEST_CASE("null pointer: %p", NULL);
+	TEST_CASE("LONG_MIN pointer: %p", (void*) LONG_MIN);
+	TEST_CASE("LONG_MAX pointer: %p", (void*) LONG_MAX);
+	TEST_CASE("+ULONG_MAX pointer: %p", (void*) +ULONG_MAX);
+	TEST_CASE("-ULONG_MAX pointer: %p", (void*) -ULONG_MAX);
+	TEST_CASE("INT_MAX: %d", INT_MAX);
+	TEST_CASE("INT_MIN: %i", INT_MIN);
+	TEST_CASE("UINT_MAX: %u", UINT_MAX);
+	TEST_CASE("UINT_MAX hexadecimal: %x", UINT_MAX);
 
-	mine_return = ft_printf("Mine: Unsigned int:%u\n", UINT_MAX);
-	std_return = printf("Std : Unsigned int:%u\n", UINT_MAX);
-	printf("Returns: ft_printf = %d, printf = %d\n\n", mine_return, std_return);
-
-	mine_return = ft_printf("Mine: Address: %p\n", &main);
-	std_return = printf("Std : Address: %p\n", &main);
-	printf("Returns: ft_printf = %d, printf = %d\n\n", mine_return, std_return);
-
-	mine_return = ft_printf("Mine: Zero: %u %d\n", 0u, 0);
-	std_return = printf("Std : Zero: %u %d\n", 0u, 0);
-	printf("Returns: ft_printf = %d, printf = %d\n\n", mine_return, std_return);
-
-	mine_return = ft_printf("Mine: Neg unsigned: %u\n", INT_MIN);
-	std_return = printf("Std : Neg unsigned: %u\n", INT_MIN);
-	printf("Returns: ft_printf = %d, printf = %d\n\n", mine_return, std_return);
-
-    mine_return = ft_printf("Mine: Empty string: '%s'\n", "");
-    std_return  = printf("Std : Empty string: '%s'\n", "");
-    printf("Empty string returns: mine=%d, std=%d\n\n", mine_return, std_return);
-
-	mine_return = ft_printf("[c:%c],[s:%s],[d:%d],[i:%i],[ui:%u],[hex::%x],[HEX:%X],[ptr:%p],[%%:%%],[min:%i],[max:%i]\n", a, b, c, d, e,f,g,b, INT_MIN, INT_MAX);
-	std_return  = printf("[c:%c],[s:%s],[d:%d],[i:%i],[ui:%u],[hex::%x],[HEX:%X],[ptr:%p],[%%:%%],[min:%i],[max:%i]\n", a, b, c, d, e,f,g,b, INT_MIN, INT_MAX);
-	printf("Returns: ft_printf = %d, printf = %d\n\n", mine_return, std_return);
-
-	mine_return = ft_printf("Mine: Pointer NULL: %p\n", NULL);
-	std_return = printf("Std : Pointer NULL: %p\n", NULL);
-	printf("Returns: ft_printf = %d, printf = %d\n\n", mine_return, std_return);
-
-    mine_return = ft_printf("Mine: NULL string: %s\n", b);
-    std_return  = printf("Std : NULL string: %s\n", b);
-    printf("Returns: mine=%d, std=%d\n\n", mine_return, std_return);
-
-    mine_return = ft_printf("Mine: Neg unsigned: %u\n", (unsigned int)d);
-    std_return  = printf("Std : Neg unsigned: %u\n", (unsigned int)d);
-    printf("Returns: mine=%d, std=%d\n\n", mine_return, std_return);
-
-    mine_return = ft_printf("");
-    std_return  = printf("");
-    printf("Empty format returns: mine=%d, std=%d\n\n", mine_return, std_return);
-
-	mine_return = ft_printf(NULL);
-    //std_return  = printf(NULL);
-    printf("Null format returns: mine=%d, std=%d\n\n", mine_return, std_return);
-
-    mine_return = ft_printf("Mine: %%%""%%\n");
-    std_return  = printf("Std : %%%""%%\n");
-    printf("Multiple percents returns: mine=%d, std=%d\n\n", mine_return, std_return);
-
-	mine_return = ft_printf("Mine: Just percent: %%%\n");
-	std_return = printf("Std : Just percent: %%%\n");
-	printf("Returns: ft_printf = %d, printf = %d\n\n", mine_return, std_return);
-
-    mine_return = ft_printf("Mine: Unknown: %k\n");
-    std_return  = printf("Std : Unknown: %k\n");
-    printf("Returns: mine=%d, std=%d\n\n", mine_return, std_return);
-
-    mine_return = ft_printf("Mine: Lone percent at end: %\n");
-    std_return  = printf("Std : Lone percent at end: %\n");
-    printf("Returns: mine=%d, std=%d\n\n", mine_return, std_return);
-
-	 // Close stdout to simulate a write error
-	 close(1);
-
-	 // Call ft_printf, which should now fail to write
-	 int ret = ft_printf("Hello, world!\n");
- 
-	 // Print the result to stderr
-	 if (ret == -1) {
-		 fprintf(stderr, "ft_printf returned -1 on write error as expected.\n");
-	 } else {
-		 fprintf(stderr, "ft_printf did NOT return -1 (returned %d).\n", ret);
-	 }
- 
+	// Print a summary of all test cases.
+	PRINT("%d/%d tests passed", total_passed, total_tested);
+	PRINT(" %s\n", total_passed == total_tested ? GREEN_OK : RED_KO);
 }
