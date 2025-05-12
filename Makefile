@@ -6,7 +6,7 @@
 #    By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/05 09:01:15 by bgazur            #+#    #+#              #
-#    Updated: 2025/05/09 12:14:29 by bgazur           ###   ########.fr        #
+#    Updated: 2025/05/12 11:11:53 by bgazur           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,8 +15,8 @@ CC = cc
 CFLAGS = -Wall -Wextra -Werror
 RM = rm -f
 OBJS = $(SRCS:.c=.o)
-SRCS = ft_printf.c ft_putchar.c ft_putnbr_p.c ft_putnbr_s.c ft_putnbr_u.c
-SRCS += ft_putstr.c
+SRCS = ft_printf.c ft_putchar_m.c ft_putnbr_p.c ft_putnbr_s.c ft_putnbr_u.c
+SRCS += ft_putstr_m.c
 
 all: $(NAME)
 
