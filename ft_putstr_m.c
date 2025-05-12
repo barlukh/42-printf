@@ -1,18 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putchar.c                                       :+:      :+:    :+:   */
+/*   ft_putstr_m.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/05 13:07:57 by bgazur            #+#    #+#             */
-/*   Updated: 2025/05/10 15:04:53 by bgazur           ###   ########.fr       */
+/*   Created: 2025/05/05 14:24:42 by bgazur            #+#    #+#             */
+/*   Updated: 2025/05/12 11:08:43 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	ft_putchar(int c)
+int	ft_putstr_m(const char *s)
 {
-	return (write(1, &c, 1));
+	int	count;
+
+	if (!s)
+		s = "(null)";
+	count = 0;
+	while (s[count] != '\0')
+	{
+		if (ft_putchar_m(s[count]) < 1)
+			return (-1);
+		count++;
+	}
+	return (count);
 }

@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 08:58:29 by bgazur            #+#    #+#             */
-/*   Updated: 2025/05/11 09:37:12 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/05/12 11:08:43 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	ft_printf(const char *s, ...);
  * @param c Character to write
  * @return Number of characters written, -1 on error
  */
-int	ft_putchar(int c);
+int	ft_putchar_m(int c);
 
 /** Writes a memory address of a pointer into the standard output
  * @param p Memory address to write (represented as an integer)
@@ -61,6 +61,6 @@ int	ft_putnbr_u(unsigned int n, unsigned int base, const char *style);
  * @param s String to write
  * @return Number of characters written, -1 on error
  */
-int	ft_putstr(const char *s);
+int	ft_putstr_m(const char *s);
 
 #endif

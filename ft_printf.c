@@ -6,14 +6,14 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 08:57:20 by bgazur            #+#    #+#             */
-/*   Updated: 2025/05/11 09:30:39 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/05/12 11:08:43 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static void	ft_parse_character(const char *s, size_t *i, int *count, va_list *args);
-static int	ft_parse_format(char c, va_list *args);
+static void	ft_parse_index(const char *s, size_t *i, int *count, va_list *args);
+static int	ft_parse_format_specifier(char c, va_list *args);
 
 int	ft_printf(const char *s, ...)
 {
@@ -28,7 +28,7 @@ int	ft_printf(const char *s, ...)
 	i = 0;
 	while (s[i] != '\0')
 	{
-		ft_parse_character(s, &i, &count, &args);
+		ft_parse_index(s, &i, &count, &args);
 		if (count == -1)
 			return (-1);
 	}
@@ -37,14 +37,14 @@ int	ft_printf(const char *s, ...)
 }
 
 // Parses each character of the formatted string
-static void	ft_parse_character(const char *s, size_t *i, int *count, va_list *args)
+static void	ft_parse_index(const char *s, size_t *i, int *count, va_list *args)
 {
 	int	check;
 
 	check = 0;
 	if (s[*i] != '%')
 	{
-		if (ft_putchar(s[(*i)]) < 1)
+		if (ft_putchar_m(s[(*i)]) < 1)
 			*count = -1;
 		else
 			(*count)++;
@@ -52,7 +52,7 @@ static void	ft_parse_character(const char *s, size_t *i, int *count, va_list *ar
 	}
 	else
 	{
-		check = ft_parse_format(s[(*i) + 1], args);
+		check = ft_parse_format_specifier(s[(*i) + 1], args);
 		if (check == -1)
 		{
 			*count = -1;
@@ -64,14 +64,14 @@ static void	ft_parse_character(const char *s, size_t *i, int *count, va_list *ar
 }
 
 // Parses each variadic argument of the format specifier
-static int	ft_parse_format(char c, va_list *args)
+static int	ft_parse_format_specifier(char c, va_list *args)
 {
 	if (c == '%')
-		return (ft_putchar(c));
+		return (ft_putchar_m(c));
 	else if (c == 'c')
-		return (ft_putchar(va_arg(*args, int)));
+		return (ft_putchar_m(va_arg(*args, int)));
 	else if (c == 's')
-		return (ft_putstr(va_arg(*args, const char *)));
+		return (ft_putstr_m(va_arg(*args, const char *)));
 	else if (c == 'd' || c == 'i')
 		return (ft_putnbr_s(va_arg(*args, int)));
 	else if (c == 'u')
