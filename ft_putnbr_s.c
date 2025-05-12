@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 15:42:51 by bgazur            #+#    #+#             */
-/*   Updated: 2025/05/12 11:08:43 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/05/12 19:41:11 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,21 @@
 
 int	ft_putnbr_s(int n)
 {
-	int			count;
+	int	count;
 
 	count = 0;
 	if (n == INT_MIN)
 		return (ft_putstr_m("-2147483648"));
 	if (n < 0)
 	{
-		if (ft_putchar_m('-') < 1)
+		if (ft_putchar_m('-') == -1)
 			return (-1);
 		count++;
 		n = -n;
 	}
 	if (n >= BASE10)
 		count += ft_putnbr_s(n / BASE10);
-	if (ft_putchar_m(DECIMAL[n % BASE10]) < 1)
+	if (ft_putchar_m(DECIMAL[n % BASE10]) == -1)
 		return (-1);
 	count++;
 	return (count);

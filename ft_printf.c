@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 08:57:20 by bgazur            #+#    #+#             */
-/*   Updated: 2025/05/12 11:08:43 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/05/12 19:07:06 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,12 @@ static void	ft_parse_index(const char *s, size_t *i, int *count, va_list *args)
 	check = 0;
 	if (s[*i] != '%')
 	{
-		if (ft_putchar_m(s[(*i)]) < 1)
+		if (ft_putchar_m(s[(*i)]) == -1)
+		{
 			*count = -1;
-		else
-			(*count)++;
+			return ;
+		}
+		(*count)++;
 		(*i)++;
 	}
 	else

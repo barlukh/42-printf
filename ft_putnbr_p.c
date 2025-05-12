@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 14:04:20 by bgazur            #+#    #+#             */
-/*   Updated: 2025/05/12 11:08:43 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/05/12 19:41:06 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	ft_putnbr_p(uintptr_t p)
 {
-	int			count;
+	int	count;
 
 	if (p == 0)
 		return (ft_putstr_m("(nil)"));
@@ -25,7 +25,7 @@ int	ft_putnbr_p(uintptr_t p)
 		count += ft_putstr_m("0x");
 	if (count == -1)
 		return (-1);
-	if (ft_putchar_m(HEX_LCASE[p % BASE16]) < 1)
+	if (ft_putchar_m(HEX_LCASE[p % BASE16]) == -1)
 		return (-1);
 	count++;
 	return (count);
