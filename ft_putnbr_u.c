@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 12:35:10 by bgazur            #+#    #+#             */
-/*   Updated: 2025/05/12 20:59:53 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/05/13 08:48:53 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	ft_putnbr_u(unsigned int n, unsigned int base, const char *style)
 {
 	int	count;
-	int check;
+	int	check;
 
 	count = 0;
 	if (n >= base)
