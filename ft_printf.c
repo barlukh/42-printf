@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 08:57:20 by bgazur            #+#    #+#             */
-/*   Updated: 2025/05/12 19:07:06 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/05/13 15:04:23 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	ft_printf(const char *s, ...)
 	{
 		ft_parse_index(s, &i, &count, &args);
 		if (count == -1)
-			return (-1);
+			break ;
 	}
 	va_end(args);
 	return (count);
